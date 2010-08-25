@@ -215,11 +215,6 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
          addWire: function() {},
          removeWire: function() {},
          getXY: function() { 
-            var layers = Dom.getElementsByClassName('WireIt-Layer');
-            if(layers.length > 0) {
-               var orig = Dom.getXY(layers[0]);
-               return [this.pos[0]-orig[0]+halfProxySize, this.pos[1]-orig[1]+halfProxySize]; 
-            }
             return this.pos;
          }
       };
@@ -248,10 +243,10 @@ lang.extend(WireIt.TerminalProxy, util.DDProxy, {
         			curleft += obj.offsetLeft;
         			curtop += obj.offsetTop;
         			obj = obj.offsetParent ;
-        		} while ( obj = obj.offsetParent );
+        		} while ( obj );
         	}
-         this.fakeTerminal.pos = [e.clientX-curleft+this.terminal.container.layer.el.scrollLeft,
-                                  e.clientY-curtop+this.terminal.container.layer.el.scrollTop];
+         this.fakeTerminal.pos = [e.pageX-curleft+this.terminal.container.layer.el.scrollLeft,
+                                  e.pageY-curtop+this.terminal.container.layer.el.scrollTop];
       }
       else {
          this.fakeTerminal.pos = (YAHOO.env.ua.ie) ? [e.clientX, e.clientY] : [e.clientX+window.pageXOffset, e.clientY+window.pageYOffset];
